@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
 import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
 import { ExploreContainerComponent } from '../explore-container/explore-container.component';
 import { Geolocation, Position } from '@capacitor/geolocation';
@@ -15,17 +15,19 @@ import { CommonModule } from '@angular/common';
 export class Tab1Page {
   position$ = new Subject<Position | null>();
 
-  constructor() {
+  constructor(private zone: NgZone) {
     Geolocation.watchPosition(
       {},
       (position, err) => {
-        if (err) {
-          console.error('err', err);
-          this.position$.next(null);
-          return;
-        }
-        console.debug('position', position);
-        this.position$.next(position);
+        this.zone.run(() => {
+          if (err) {
+            console.error('err', err);
+            this.position$.next(null);
+            return;
+          }
+          console.debug('position', position);
+          this.position$.next(position);
+        });
       },
     );
   }

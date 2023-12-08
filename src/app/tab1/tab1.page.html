@@ -14,7 +14,8 @@
   </ion-header>
 
   <app-explore-container name="Tab 1 page"></app-explore-container>
-  <pre>
-    {{position$ | async | json}}
+  <pre *ngIf="position$|async as position">
+    {{position?.coords?.latitude}}
+    {{position?.coords?.longitude}}
   </pre>
 </ion-content>
