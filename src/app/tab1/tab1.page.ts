@@ -19,6 +19,12 @@ export class Tab1Page {
     Geolocation.watchPosition(
       {},
       (position, err) => {
+        if (err) {
+          console.error('err', err);
+          this.position$.next(null);
+          return;
+        }
+        console.debug('position', position);
         this.position$.next(position);
       },
     );
