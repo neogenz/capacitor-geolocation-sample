@@ -1,0 +1,7 @@
+{
+  "name": "capacitor-geolocation-sample",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
